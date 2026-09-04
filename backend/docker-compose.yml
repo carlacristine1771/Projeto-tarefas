@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  db-tarefas:
+    image: postgres:16
+    container_name: db-tarefas
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: tarefas
+      POSTGRES_USER: tarefas
+      POSTGRES_PASSWORD: tarefas123
+    ports:
+      - "5433:5432"
+    volumes:
+      - tarefas_data:/var/lib/postgresql/data
+
+volumes:
+  tarefas_data:
