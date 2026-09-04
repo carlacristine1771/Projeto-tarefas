@@ -16,13 +16,12 @@ export default function DetalheProjeto() {
   const [tarefas, setTarefas] = useState([])
   const [filtroStatus, setFiltroStatus] = useState('TODAS')
 
-  // BUG: array de dependencias vazio. Se o usuario for de um projeto pra outro
-  // (ex: pela URL ou por outro link) sem recarregar a pagina inteira, os dados
-  // do projeto anterior continuam na tela.
   useEffect(() => {
+    setProjeto(null)
+    setTarefas([])
     get(`/projetos/${id}`).then(setProjeto)
     get(`/tarefas?projetoId=${id}`).then(setTarefas)
-  }, [])
+  }, [id])
 
   // BUG: filtroStatus e atualizado pelo select, mas a lista renderizada abaixo
   // usa "tarefas" direto em vez de uma lista filtrada -- o filtro nunca
