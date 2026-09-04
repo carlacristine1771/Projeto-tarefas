@@ -26,7 +26,13 @@ export default function FormTarefa() {
 
   function handleSubmit(e) {
     e.preventDefault()
-    // BUG: nao valida se dataLimite esta no passado antes de salvar
+    const dataAtual = new Date()
+    const hoje = `${dataAtual.getFullYear()}-${String(dataAtual.getMonth() + 1).padStart(2, '0')}-${String(dataAtual.getDate()).padStart(2, '0')}`
+    if (form.dataLimite && form.dataLimite < hoje) {
+      alert('A data limite nao pode estar no passado.')
+      return
+    }
+
     if (id) {
       put(`/tarefas/${id}`, form).then(() => navigate(-1))
     } else {
